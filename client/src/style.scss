@@ -43,3 +43,42 @@
         margin-bottom: 0.5em;
     }
 }
+
+.registerForm {
+    .formContainer {
+        display: flex;
+        flex-direction: column;
+        width: 30%;
+        margin: 0 auto;
+    }
+
+    input {
+        margin-bottom: 20px;
+        padding: 10px;
+        border: 2px solid black;
+        border-radius: 8px;
+    }
+
+    label {
+        display: flex;
+        justify-content: start;
+        margin-bottom: 5px;
+        font-size: 16px;
+    }
+
+    button {
+        padding: 11px;
+        border: none;
+        border-radius: 8px;
+        background-color: black;
+        color: white;
+        font-size: 16px;
+        font-weight: 700;
+        cursor: pointer;
+    }
+
+    h1 {
+        margin-top: 1.5em;
+        margin-bottom: 0.5em;
+    }
+}
