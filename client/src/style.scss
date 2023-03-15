@@ -82,3 +82,27 @@
         margin-bottom: 0.5em;
     }
 }
+
+.passwordToggleOpen {
+    input {
+        background: url("images/eye-outlined.svg");
+        background-repeat: no-repeat;
+        background-position: calc(100% - 5px);
+        width: 100%;
+    }
+}
+
+.passwordToggleClose {
+    position: relative;
+    display: inline-block;
+
+    img {
+        position: absolute;
+        right: 10px;
+        top: calc(50% - 20px);
+    }
+
+    input {
+        width: 100%;
+    }
+}

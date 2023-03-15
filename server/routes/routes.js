@@ -15,7 +15,7 @@ router.patch("/logout", cleanBody, users.logout);
 
 router.post("/checktoken", validateToken, users.checkToken);
 
-router.patch("/getuserid", cleanBody, users.getUserId);
+router.patch("/getuserid", [cleanBody, validateToken], users.getUserId);
 
 router.post("/changepassword", cleanBody, users.changePassword);
 

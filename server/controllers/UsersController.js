@@ -42,7 +42,7 @@ class UsersController {
 
     async login(req, res) {
         try {
-            let user = await User.findOne({ username: req.body.username });
+            let user = await User.findOne({ email: req.body.email });
 
             if (!user) {
                 return res.status(404).json({
@@ -53,7 +53,7 @@ class UsersController {
 
             const isValid = await comparePasswords(req.body.password, user.password);
 
-            const { error, token } = await generateJWT(user.username);
+            const { error, token } = await generateJWT(user.email);
 
             if (error) {
                 return res.status(500).json({
