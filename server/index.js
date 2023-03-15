@@ -1,10 +1,12 @@
-require("dotenv").config();
-
-const express = require("express");
-const mongoose = require("mongoose");
+import dotenv from "dotenv";
+dotenv.config();
+import express from "express";
+import mongoose from "mongoose";
 const mongoString = process.env.DATABASE_URL;
+import cors from "cors";
+import cookieSession from "cookie-session";
 
-const routes = require("./routes/routes");
+import routes from "./routes/routes.js";
 
 mongoose.connect(mongoString);
 const database = mongoose.connection;
@@ -19,7 +21,16 @@ database.once("connected", () => {
 
 const app = express();
 
+app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(
+    cookieSession({
+        name: "login-session",
+        secret: process.env.JWT_SECRET,
+        httpOnly: true
+    })
+);
 app.use("/api", routes);
 
 app.listen(3000, () => {
