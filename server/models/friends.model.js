@@ -1,8 +1,8 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
-const friendsSchema = new Schema({
-    requester: { type: Schema.Types.ObjectId, ref: "Users" },
-    recipient: { type:Schema.Types.ObjectId, ref: "Users" },
+const friendsSchema = new mongoose.Schema({
+    requester: { type: mongoose.Schema.Types.ObjectId, ref: "Users" },
+    recipient: { type: mongoose.Schema.Types.ObjectId, ref: "Users" },
     status: {
         type: Number,
         enums: [

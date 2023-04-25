@@ -1,4 +1,5 @@
 import User from "../models/user.model.js";
+import Friend from "../models/friends.model.js";
 import hashPassword from "./helpers/hashPassword.js";
 import comparePasswords from "./helpers/comparePasswords.js";
 import generateJWT from "../middlewares/generateJWT.js";
@@ -77,6 +78,7 @@ class UsersController {
                 success: true,
                 message: "User logged in successfully",
                 token: token,
+                username: user.username,
             });
         } catch(error) {
             console.error(error);
@@ -117,6 +119,37 @@ class UsersController {
             error: false,
             message: "Token is valid",
         });
+    }
+
+    async getUser(req, res) {
+        try {
+            let objName;
+            let query;
+
+            if (req.body.username) {
+                objName = "username";
+                query = req.body.username;
+            } else if (req.body.objectId) {
+                objName = "_id";
+                query = req.body.objectId;
+            }
+
+            let user = await User.findOne({
+                objName: query,
+            });
+
+            return res.status(200).send({
+                success: true,
+                data: user,
+            });
+        } catch(error) {
+            console.error(error);
+
+            return res.status(500).json({
+                error: true,
+                message: error,
+            });
+        }
     }
 
     async getUserId(req, res) {
@@ -163,7 +196,7 @@ class UsersController {
 
             const hashedPassword = await hashPassword(req.body.newPassword);
 
-            user.password = hashPassword;
+            user.password = hashedPassword;
 
             await user.save();
 
@@ -175,6 +208,56 @@ class UsersController {
                 error: true,
                 message: error,
             });
+        }
+    }
+
+    async changeUser(req, res) {
+        try {
+            console.log("enter changeUser");
+            let field = req.body.field;
+
+            let user = await User.findOneAndUpdate({
+                username: req.body.username,
+            },
+            {
+                [field]: req.body.value
+            }, {new: true});
+
+            await user.save();
+
+            return res.status(200).send(user);
+        } catch(error) {
+            console.error(error);
+
+            return res.status(500).json({
+                error: true,
+                message: error
+            });
+        }
+    }
+
+    async getAllFriends(req, res) {
+        try {
+            User.findById(req.body.userId)
+                .populate("friends")
+                .exec((err, user) => {
+                    if (err) {
+                        console.error(err);
+                    } else {
+                        const friendsReferencesIds = user.friends.map(friend => friend._id);
+                        Friend.aggregate([
+                            { $match: { _id: { $in: friendsReferencesIds } } },
+                        ]).exec((err, friends) => {
+                            if (err) {
+                                console.error(err);
+                            } else {
+                                return res.status(200).send(friends);
+                            }
+                        });
+                    }
+                })
+        } catch(error) {
+            console.error(error);
         }
     }
 }

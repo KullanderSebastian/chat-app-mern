@@ -83,15 +83,6 @@
     }
 }
 
-.passwordToggleOpen {
-    input {
-        background: url("images/eye-outlined.svg");
-        background-repeat: no-repeat;
-        background-position: calc(100% - 5px);
-        width: 100%;
-    }
-}
-
 .passwordToggleClose {
     position: relative;
     display: inline-block;
@@ -100,6 +91,89 @@
         position: absolute;
         right: 10px;
         top: calc(50% - 20px);
+    }
+
+    input {
+        width: 100%;
+    }
+}
+
+.profile {
+    header {
+        display: flex;
+    }
+
+    img {
+        width: 37px;
+    }
+}
+
+.profileContent {
+    img {
+        width: 100px;
+        margin: auto;
+        display: block;
+    }
+
+    .content {
+        display: flex;
+        flex-direction: column;
+        width: 30%;
+        margin: 0 auto;
+
+        input {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 2px solid black;
+            border-radius: 8px;
+        }
+    }
+}
+
+.changePassword {
+    .formContainer {
+        display: flex;
+        flex-direction: column;
+        width: 30%;
+        margin: 0 auto;
+    }
+
+    input {
+        margin-bottom: 20px;
+        padding: 10px;
+        border: 2px solid black;
+        border-radius: 8px;
+    }
+
+    label {
+        display: flex;
+        justify-content: start;
+        margin-bottom: 5px;
+        font-size: 16px;
+    }
+
+    button {
+        padding: 11px;
+        border: none;
+        border-radius: 8px;
+        background-color: black;
+        color: white;
+        font-size: 16px;
+        font-weight: 700;
+        cursor: pointer;
+        margin-bottom: 20px;
+    }
+}
+
+.changeInput {
+    position: relative;
+    display: inline-block;
+
+    .editImage {
+        position: absolute;
+        right: 10px;
+        top: calc(50% - 20px);
+        width: 20px;
     }
 
     input {
